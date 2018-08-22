@@ -24,7 +24,8 @@
 
     <TABLE NAME="forumqta_blobs" COMMENT="Default comment for forumqta, please edit me">
       <FIELDS>
-          <FIELD NAME="blobid" TYPE="int" LENGTH="20" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="format"/>
+          <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" NEXT="blobid"/>
+          <FIELD NAME="blobid" TYPE="int" LENGTH="20" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" PREVIOUS="id" NEXT="format"/>
           <FIELD NAME="format" TYPE="char" LENGTH="20" NOTNULL="true" SEQUENCE="false" COMMENT="" PREVIOUS="blobid" NEXT="content"/>
           <FIELD NAME="content" TYPE="binary" LENGTH="16777215" NOTNULL="false" SEQUENCE="false" COMMENT="" PREVIOUS="format" NEXT="filename"/>
           <FIELD NAME="filename" TYPE="char" LENGTH="255" NOTNULL="false" SEQUENCE="false" COMMENT="" PREVIOUS="content" NEXT="userid"/>
@@ -40,7 +41,8 @@
 
     <TABLE NAME="forumqta_cache" COMMENT="Default comment for forumqta, please edit me">
       <FIELDS>
-          <FIELD NAME="type" TYPE="char" LENGTH="8" NOTNULL="true" SEQUENCE="false" COMMENT="" NEXT="cacheid"/>
+          <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" NEXT="type"/>
+          <FIELD NAME="type" TYPE="char" LENGTH="8" NOTNULL="true" SEQUENCE="false" COMMENT="" PREVIOUS="id" NEXT="cacheid"/>
           <FIELD NAME="cacheid" TYPE="int" LENGTH="20" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" COMMENT="" PREVIOUS="type" NEXT="content"/>
           <FIELD NAME="content" TYPE="binary" LENGTH="16777215" NOTNULL="true" SEQUENCE="false" COMMENT="" PREVIOUS="cacheid" NEXT="created"/>
           <FIELD NAME="created"  TYPE="datetime" NOTNULL="true" SEQUENCE="false" COMMENT="" PREVIOUS="content" NEXT="lastread"/>
@@ -72,7 +74,8 @@
 
     <TABLE NAME="forumqta_categorymetas" COMMENT="Default comment for forumqta, please edit me">
       <FIELDS>
-          <FIELD NAME="categoryid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" NEXT="title"/>
+          <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" NEXT="categoryid"/>
+          <FIELD NAME="categoryid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" PREVIOUS="id" NEXT="title"/>
           <FIELD NAME="title" TYPE="char" LENGTH="40" NOTNULL="true" SEQUENCE="false" COMMENT="" PREVIOUS="categoryid" NEXT="content"/>
           <FIELD NAME="content"  TYPE="char" LENGTH="1333" NOTNULL="true" SEQUENCE="false" COMMENT="" PREVIOUS="title"/>
       </FIELDS>
@@ -83,7 +86,8 @@
 
     <TABLE NAME="forumqta_contentwords" COMMENT="Default comment for forumqta, please edit me">
       <FIELDS>
-          <FIELD NAME="postid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" COMMENT="" NEXT="wordid"/>
+          <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" NEXT="postid"/>
+          <FIELD NAME="postid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" COMMENT="" PREVIOUS="id" NEXT="wordid"/>
           <FIELD NAME="wordid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" COMMENT="" PREVIOUS="postid" NEXT="count"/>
           <FIELD NAME="count" TYPE="int" LENGTH="3" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" COMMENT="" PREVIOUS="wordid" NEXT="type"/>
           <FIELD NAME="type" TYPE="char" LENGTH="5" NOTNULL="true" SEQUENCE="false" COMMENT="" PREVIOUS="count" NEXT="questionid"/>
@@ -97,7 +101,8 @@
 
     <TABLE NAME="forumqta_cookies" COMMENT="Default comment for forumqta, please edit me">
       <FIELDS>
-          <FIELD NAME="cookieid" TYPE="int" LENGTH="20" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" COMMENT="" NEXT="created"/>
+          <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" NEXT="cookieid"/>
+          <FIELD NAME="cookieid" TYPE="int" LENGTH="20" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" COMMENT="" PREVIOUS="id" NEXT="created"/>
           <FIELD NAME="created" TYPE="datetime" LENGTH="23" NOTNULL="true" SEQUENCE="false" COMMENT="" PREVIOUS="cookieid" NEXT="createip"/>
           <FIELD NAME="createip" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" COMMENT="" PREVIOUS="created" NEXT="written"/>
           <FIELD NAME="written" TYPE="datetime" LENGTH="23" NOTNULL="false" SEQUENCE="false" COMMENT="" PREVIOUS="createip" NEXT="writeip"/>
@@ -123,7 +128,8 @@
 
     <TABLE NAME="forumqta_options" COMMENT="Default comment for forumqta, please edit me">
       <FIELDS>
-          <FIELD NAME="title" TYPE="char" LENGTH="40" NOTNULL="true" SEQUENCE="false" COMMENT="" NEXT="content"/>
+          <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" NEXT="title"/>
+          <FIELD NAME="title" TYPE="char" LENGTH="40" NOTNULL="true" SEQUENCE="false" COMMENT="" PREVIOUS="id" NEXT="content"/>
           <FIELD NAME="content" TYPE="char" LENGTH="1333" NOTNULL="true" SEQUENCE="false" COMMENT="" PREVIOUS="title"/>
       </FIELDS>
       <KEYS>
@@ -133,7 +139,8 @@
 
     <TABLE NAME="forumqta_pages" COMMENT="Default comment for forumqta, please edit me">
       <FIELDS>
-          <FIELD NAME="pageid" TYPE="int" LENGTH="5" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" COMMENT="" NEXT="title"/>
+          <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" NEXT="pageid"/>
+          <FIELD NAME="pageid" TYPE="int" LENGTH="5" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" COMMENT="" PREVIOUS="id" NEXT="title"/>
           <FIELD NAME="title" TYPE="char" LENGTH="80" NOTNULL="true" SEQUENCE="false" COMMENT="" PREVIOUS="pageid" NEXT="nav"/>
           <FIELD NAME="nav" TYPE="char" LENGTH="1" NOTNULL="true" SEQUENCE="false" COMMENT="" PREVIOUS="title" NEXT="position"/>
           <FIELD NAME="position" TYPE="int" LENGTH="5" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" COMMENT="" PREVIOUS="nav" NEXT="flags"/>
@@ -150,7 +157,8 @@
 
     <TABLE NAME="forumqta_postmetas" COMMENT="Default comment for forumqta, please edit me">
       <FIELDS>
-          <FIELD NAME="postid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" COMMENT="" NEXT="title"/>
+          <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" NEXT="postid"/>
+          <FIELD NAME="postid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" COMMENT="" PREVIOUS="id" NEXT="title"/>
           <FIELD NAME="title" TYPE="char" LENGTH="40" NOTNULL="true" SEQUENCE="false" COMMENT="" PREVIOUS="postid" NEXT="content"/>
           <FIELD NAME="content" TYPE="char" LENGTH="1333" NOTNULL="true" SEQUENCE="false" COMMENT="" PREVIOUS="title"/>
       </FIELDS>
@@ -161,7 +169,8 @@
 
     <TABLE NAME="forumqta_posts" COMMENT="Default comment for forumqta, please edit me">
       <FIELDS>
-          <FIELD NAME="postid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" COMMENT="" NEXT="groupid"/>
+          <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" NEXT="postid"/>
+          <FIELD NAME="postid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" COMMENT="" PREVIOUS="id" NEXT="groupid"/>
           <FIELD NAME="groupid" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" COMMENT="" PREVIOUS="postid" NEXT="type"/>
           <FIELD NAME="type" TYPE="char" LENGTH="8" NOTNULL="true" SEQUENCE="false" COMMENT="" PREVIOUS="groupid" NEXT="parentid"/>
           <FIELD NAME="parentid" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" COMMENT="" PREVIOUS="type" NEXT="categoryid"/>
@@ -230,7 +239,8 @@
 
     <TABLE NAME="forumqta_tagmetas" COMMENT="Default comment for forumqta, please edit me">
       <FIELDS>
-          <FIELD NAME="tag" TYPE="char" LENGTH="80" NOTNULL="true" SEQUENCE="false" COMMENT="" NEXT="title"/>
+          <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" NEXT="tag"/>
+          <FIELD NAME="tag" TYPE="char" LENGTH="80" NOTNULL="true" SEQUENCE="false" COMMENT="" PREVIOUS="id" NEXT="title"/>
           <FIELD NAME="title" TYPE="char" LENGTH="40" NOTNULL="true" SEQUENCE="false" COMMENT="" PREVIOUS="tag" NEXT="content"/>
           <FIELD NAME="content" TYPE="char" LENGTH="1333" NOTNULL="true" SEQUENCE="false" COMMENT="" PREVIOUS="title"/>
       </FIELDS>
@@ -280,7 +290,8 @@
 
     <TABLE NAME="forumqta_userfavorites" COMMENT="Default comment for forumqta, please edit me">
       <FIELDS>
-          <FIELD NAME="userid" TYPE="int" LENGTH="20" NOTNULL="true" SEQUENCE="false" COMMENT="" NEXT="entitytype"/>
+          <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" NEXT="userid"/>
+          <FIELD NAME="userid" TYPE="int" LENGTH="20" NOTNULL="true" SEQUENCE="false" COMMENT="" PREVIOUS="id" NEXT="entitytype"/>
           <FIELD NAME="entitytype" TYPE="char" LENGTH="1" NOTNULL="true" SEQUENCE="false" COMMENT="" PREVIOUS="userid" NEXT="entityid"/>
           <FIELD NAME="entityid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" COMMENT="" PREVIOUS="entitytype" NEXT="nouserenvents"/>
           <FIELD NAME="nouserevents" TYPE="int" LENGTH="3" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" COMMENT="" PREVIOUS="entityid"/>
@@ -319,7 +330,8 @@
 
     <TABLE NAME="forumqta_usermetas" COMMENT="Default comment for forumqta, please edit me">
       <FIELDS>
-          <FIELD NAME="userid" TYPE="int" LENGTH="20" NOTNULL="true" SEQUENCE="false" COMMENT="" NEXT="title"/>
+          <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" NEXT="userid"/>
+          <FIELD NAME="userid" TYPE="int" LENGTH="20" NOTNULL="true" SEQUENCE="false" COMMENT="" PREVIOUS="id" NEXT="title"/>
           <FIELD NAME="title" TYPE="char" LENGTH="40" NOTNULL="true" SEQUENCE="false" COMMENT="" PREVIOUS="userid" NEXT="content"/>
           <FIELD NAME="content" TYPE="char" LENGTH="1333" NOTNULL="true" SEQUENCE="false" COMMENT="" PREVIOUS="title"/>
       </FIELDS>
@@ -330,7 +342,8 @@
 
     <TABLE NAME="forumqta_usernotices" COMMENT="Default comment for forumqta, please edit me">
       <FIELDS>
-          <FIELD NAME="noticeid" TYPE="int" LENGTH="20" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" COMMENT="" NEXT="userid"/>
+          <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" NEXT="noticeid"/>
+          <FIELD NAME="noticeid" TYPE="int" LENGTH="20" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" COMMENT="" PREVIOUS="id" NEXT="userid"/>
           <FIELD NAME="userid" TYPE="int" LENGTH="20" NOTNULL="true" SEQUENCE="false" COMMENT="" PREVIOUS="noticeid" NEXT="content"/>
           <FIELD NAME="content" TYPE="char" LENGTH="1333" NOTNULL="true" SEQUENCE="false" COMMENT="" PREVIOUS="userid" NEXT="format"/>
           <FIELD NAME="format" TYPE="char" LENGTH="40" NOTNULL="true" SEQUENCE="false" COMMENT="" PREVIOUS="content" NEXT="tags"/>
@@ -344,7 +357,8 @@
 
     <TABLE NAME="forumqta_userpoints" COMMENT="Default comment for forumqta, please edit me">
       <FIELDS>
-          <FIELD NAME="userid" TYPE="int" LENGTH="20" NOTNULL="true" SEQUENCE="false" COMMENT="" NEXT="points"/>
+          <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" NEXT="userid"/>
+          <FIELD NAME="userid" TYPE="int" LENGTH="20" NOTNULL="true" SEQUENCE="false" COMMENT="" PREVIOUS="id" NEXT="points"/>
           <FIELD NAME="points" TYPE="int" LENGTH="11" NOTNULL="true" SEQUENCE="false" DEFAULT="0" COMMENT="" PREVIOUS="userid" NEXT="qposts"/>
           <FIELD NAME="qposts" TYPE="int" LENGTH="9" NOTNULL="true" SEQUENCE="false" DEFAULT="0" COMMENT="" PREVIOUS="points" NEXT="aposts"/>
           <FIELD NAME="aposts" TYPE="int" LENGTH="9" NOTNULL="true" SEQUENCE="false" DEFAULT="0" COMMENT="" PREVIOUS="qposts" NEXT="cposts"/>
@@ -368,7 +382,8 @@
 
     <TABLE NAME="forumqta_uservotes" COMMENT="Default comment for forumqta, please edit me">
       <FIELDS>
-          <FIELD NAME="postid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" COMMENT="" NEXT="userid"/>
+          <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" NEXT="postid"/>
+          <FIELD NAME="postid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" COMMENT="" PREVIOUS="id" NEXT="userid"/>
           <FIELD NAME="userid" TYPE="int" LENGTH="20" NOTNULL="true" SEQUENCE="false" COMMENT="" PREVIOUS="postid" NEXT="vote"/>
           <FIELD NAME="vote" TYPE="int" LENGTH="4" NOTNULL="true" SEQUENCE="false" COMMENT="" PREVIOUS="userid" NEXT="flag"/>
           <FIELD NAME="flag" TYPE="int" LENGTH="4" NOTNULL="true" SEQUENCE="false" COMMENT="" PREVIOUS="vote"/>
@@ -380,7 +395,8 @@
 
     <TABLE NAME="forumqta_widgets" COMMENT="Default comment for forumqta, please edit me">
       <FIELDS>
-          <FIELD NAME="widgetid" TYPE="int" LENGTH="5" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" COMMENT="" NEXT="place"/>
+          <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" NEXT="widgetid"/>
+          <FIELD NAME="widgetid" TYPE="int" LENGTH="5" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" COMMENT="" PREVIOUS="id" NEXT="place"/>
           <FIELD NAME="place" TYPE="char" LENGTH="2" NOTNULL="true" SEQUENCE="false" COMMENT="" PREVIOUS="widgetid" NEXT="position"/>
           <FIELD NAME="position" TYPE="int" LENGTH="5" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" COMMENT="" PREVIOUS="place" NEXT="tags"/>
           <FIELD NAME="tags" TYPE="char" LENGTH="800" NOTNULL="true" SEQUENCE="false" COMMENT="" PREVIOUS="position" NEXT="title"/>
@@ -393,7 +409,8 @@
 
     <TABLE NAME="forumqta_words" COMMENT="Default comment for forumqta, please edit me">
       <FIELDS>
-          <FIELD NAME="wordid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" COMMENT="" NEXT="word"/>
+          <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" NEXT="wordid"/>
+          <FIELD NAME="wordid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" COMMENT="" PREVIOUS="id" NEXT="word"/>
           <FIELD NAME="word" TYPE="char" LENGTH="80" NOTNULL="true" SEQUENCE="false" COMMENT="" PREVIOUS="wordid" NEXT="titlecount"/>
           <FIELD NAME="titlecount" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" DEFAULT="0" COMMENT="" PREVIOUS="word" NEXT="contentcount"/>
           <FIELD NAME="contentcount" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" DEFAULT="0" COMMENT="" PREVIOUS="titlecount" NEXT="tagwordcount"/>
