@@ -75,6 +75,10 @@ $courseid = $course->id;
 $groupingid = $cm->groupingid;
 $cmid = $cm->id;
 
+// Activity completion on first view
+$completion = new completion_info($course);
+$completion->set_module_viewed($cm);
+
 if ($groupmode == 0) {
     echo " <iframe id='forumqta' name='coursforum' src='../forumqta/q2a/index.php?k_1=$categorytags&groupid=-1&cmid=$cmid&qa=questions&qa_1=$categorytags' width='100%' height=800px frameborder='0'></iframe> ";
 }

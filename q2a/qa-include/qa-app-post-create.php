@@ -57,6 +57,8 @@
 	See qa-app-posts.php for a higher-level function which is easier to use.
 */
 	{
+	    global $COURSE, $DB ;
+
 		require_once QA_INCLUDE_DIR.'qa-db-selects.php';
 
 		$postid=qa_db_post_create($queued ? 'Q_QUEUED' : 'Q', @$followanswer['postid'], $userid, isset($userid) ? null : $cookieid,
@@ -110,9 +112,30 @@
         $event = \mod_forumqta\event\question_created::create($params);
         $event->trigger();
 
-		return $postid;
+        complete_activity($postid);
+
+        return $postid;
 	}
-	
+
+	function complete_activity($postid){
+	    global $DB;
+
+        $message = $DB->get_record('forumqta_posts',array('postid'=>$postid));
+        $forum = $DB->get_record('forumqta',array('id'=>$message->categoryid));
+        $cm = get_coursemodule_from_instance('forumqta', $forum->id, $forum->course) ;
+        $course = $DB->get_record('course', array('id' => $forum->course), '*', MUST_EXIST);
+
+        // Update completion state
+        $completion= new completion_info($course);
+
+        /* cm is enable not workin*/
+        // Placer le bout dans la bonne méthode car c'est quand quand on poste
+        if($completion->is_enabled($cm) && $forum->completionposts) {
+
+            error_log("HALO SUZIE GUTEN MORGEN");
+            $completion->update_state($cm,COMPLETION_COMPLETE);
+        }
+    }
 	
 	function qa_update_counts_for_q($postid)
 /*
@@ -227,7 +250,9 @@
         $event = \mod_forumqta\event\answer_created::create($params);
         $event->trigger();
 
-		return $postid;
+        complete_activity($postid);
+
+        return $postid;
 	}
 	
 	
@@ -254,6 +279,7 @@
 	See qa-app-posts.php for a higher-level function which is easier to use.
 */
 	{
+	    global $COURSE, $DB ;
 		require_once QA_INCLUDE_DIR.'qa-app-emails.php';
 		require_once QA_INCLUDE_DIR.'qa-app-options.php';
 		require_once QA_INCLUDE_DIR.'qa-app-format.php';
@@ -316,7 +342,9 @@
         $event = \mod_forumqta\event\comment_created::create($params);
         $event->trigger();
 
-		return $postid;
+        complete_activity($postid);
+
+        return $postid;
 	}
 	
 
