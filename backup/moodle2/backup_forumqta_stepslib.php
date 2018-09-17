@@ -17,7 +17,7 @@ class backup_forumqta_activity_structure_step extends backup_activity_structure_
 
         // Define each element separated
        $forumqta = new backup_nested_element('forumqta', array('id'), array(
-            'course', 'name', 'intro', 'introformat',
+            'course', 'name', 'intro', 'introformat', 'completionposts',
             'timecreated', 'timemodified'));
 
         $categories = new backup_nested_element('categories');

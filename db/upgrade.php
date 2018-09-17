@@ -150,6 +150,22 @@ function xmldb_forumqta_upgrade($oldversion) {
         upgrade_mod_savepoint(true, 2007040200, 'forumqta');
     }
 
+    /// Add a new column newcol to the mdl_myqtype_options
+    if ($oldversion < 2018091400) {
+
+        // Define field completionevals to be added to forumqta.
+        $table = new xmldb_table('forumqta');
+        $field = new xmldb_field('completionposts', XMLDB_TYPE_INTEGER, '9', null, null, null, '0', 'introformat');
+
+        // Conditionally launch add field completionevals.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Forumqta savepoint reached.
+        upgrade_mod_savepoint(true, 2018091400, 'forumqta');
+    }
+
     // And that's all. Please, examine and understand the 3 example blocks above. Also
     // it's interesting to look how other modules are using this script. Remember that
     // the basic idea is to have "blocks" of code (each one being executed only once,

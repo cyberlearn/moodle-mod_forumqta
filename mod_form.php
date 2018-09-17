@@ -81,4 +81,64 @@ class mod_forumqta_mod_form extends moodleform_mod {
         // add standard buttons, common to all modules
         $this->add_action_buttons();
     }
+
+    /**
+     * Add elements for setting the custom completion rules.
+     *
+     * @category completion
+     * @return array List of added element names, or names of wrapping group elements.
+     */
+    public function add_completion_rules() {
+
+        $mform = $this->_form;
+
+        $group = [
+            $mform->createElement('checkbox', 'completionpostsenabled', ' ', get_string('completionposts', 'forumqta')),
+            $mform->createElement('text', 'completionposts', ' ', ['size' => 3]),
+        ];
+        $mform->setType('completionposts', PARAM_INT);
+        $mform->addGroup($group, 'completionpostsgroup', get_string('completionpostsgroup','forumqta'), [' '], false);
+        $mform->addHelpButton('completionpostsgroup', 'completionposts', 'forumqta');
+        $mform->disabledIf('completionposts', 'completionpostsenabled', 'notchecked');
+
+        return ['completionpostsgroup'];
+    }
+
+    /**
+     * Called during validation to see whether some module-specific completion rules are selected.
+     *
+     * @param array $data Input data not yet validated.
+     * @return bool True if one or more rules is enabled, false if none are.
+     */
+    public function completion_rule_enabled($data) {
+        return (!empty($data['completionpostsenabled']) && $data['completionposts'] != 0);
+    }
+
+    function get_data() {
+        $data = parent::get_data();
+        if (!$data) {
+            return $data;
+        }
+        if (!empty($data->completionunlocked)) {
+            // Turn off completion settings if the checkboxes aren't ticked
+            $autocompletion = !empty($data->completion) && $data->completion==COMPLETION_TRACKING_AUTOMATIC;
+            if (empty($data->completionpostsenabled) || !$autocompletion) {
+                $data->completionposts = 0;
+            }
+        }
+        return $data;
+    }
+
+    function data_preprocessing(&$default_values){
+        // [Existing code, not shown]
+
+        // Set up the completion checkboxes which aren't part of standard data.
+        // We also make the default value (if you turn on the checkbox) for those
+        // numbers to be 1, this will not apply unless checkbox is ticked.
+        $default_values['completionpostsenabled']=
+            !empty($default_values['completionposts']) ? 1 : 0;
+        if(empty($default_values['completionposts'])) {
+            $default_values['completionposts']=1;
+        }
+    }
 }

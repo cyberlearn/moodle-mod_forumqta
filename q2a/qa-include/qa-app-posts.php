@@ -28,6 +28,7 @@
  * @copyright  2016 Cyberlearn HES-SO, Leyun Xia<leyun.xia@hevs.ch>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
 	if (!defined('QA_VERSION')) { // don't allow this page to be requested directly from browser
 		header('Location: ../');
 		exit;
@@ -60,6 +61,7 @@
 	post types you can specify the $name of the post's author, which is relevant if the $userid is null.
 */
 	{
+        global $COURSE, $DB;
 		$handle=qa_post_userid_to_handle($userid);
 		$text=qa_post_content_to_text($content, $format);
 
@@ -85,13 +87,13 @@
 				$question=qa_post_parent_to_question($parent);
 				$postid=qa_comment_create($userid, $handle, null, $content, $format, $text, $notify, $email, $question, $parent, $commentsfollows, $type=='C_QUEUED', $name);
 				break;
-				
+
 			default:
 				qa_fatal_error('Post type not recognized: '.$type);
 				break;
 		}
-		
-		return $postid;
+
+        return $postid;
 	}
 	
 	

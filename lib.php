@@ -52,7 +52,9 @@ function forumqta_supports($feature) {
         case FEATURE_GROUPMEMBERSONLY:  return true;
         case FEATURE_MOD_INTRO:         return true;
         case FEATURE_SHOW_DESCRIPTION:  return true;
-        case FEATURE_BACKUP_MOODLE2:          return true;
+        case FEATURE_BACKUP_MOODLE2:    return true;
+        case FEATURE_COMPLETION_TRACKS_VIEWS: return true;
+        case FEATURE_COMPLETION_HAS_RULES: return true;
         default:                        return null;
     }
 }
@@ -214,6 +216,38 @@ function forumqta_print_recent_mod_activity($activity, $courseid, $detail, $modn
 function forumqta_cron () {
     return true;
 }
+
+/**
+ * Obtains the automatic completion state for this forum based on any conditions
+ * in forum settings.
+ *
+ * @param object $course Course
+ * @param object $cm Course-module
+ * @param int $userid User ID
+ * @param bool $type Type of comparison (or/and; can be used as return value if no conditions)
+ * @return bool True if completed, false if not, $type if conditions not set.
+ */
+function forumqta_get_completion_state($course,$cm,$userid,$type) {
+    global $CFG,$DB;
+
+    // Get forum details
+    $forum = $DB->get_record('forumqta', array('id' => $cm->instance), '*', MUST_EXIST);
+    error_log("Je suis passé par ici ");
+    // If completion option is enabled, evaluate it and return true/false
+    if($forum->completionposts) {
+        return $forum->completionposts <= $DB->get_field_sql("
+         SELECT 
+             COUNT(1) 
+         FROM 
+             {forumqta_posts} fp 
+         WHERE
+             fp.userid=:userid AND fp.catidpath1=:forumid",
+                        array('userid'=>$userid,'forumid'=>$forum->id));
+            } else {
+                // Completion option is not enabled so just return $type
+                return $type;
+            }
+        }
 
 /**
  * Returns all other caps used in the module

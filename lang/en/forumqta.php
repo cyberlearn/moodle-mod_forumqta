@@ -61,3 +61,9 @@ $string['eventcommentreshowed'] = 'Comment reshowed';
 $string['eventpostflagged'] = 'Post flagged';
 $string['eventpostunflagged'] = 'Post unflagged';
 $string['eventpostflaghidden'] = 'Post hidden due to flags';
+
+
+$string['completionpostsgroup'] = 'Require post(s)';
+$string['completionposts'] = 'Number of messages that student has to post ';
+$string['completionposts_help'] = 'Set a number of message that the student has to post in order to get activity completion.';
+

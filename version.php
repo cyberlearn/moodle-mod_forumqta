@@ -27,7 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 //must define this parameter in order to use Q2A libraries
 //define('QA_VERSION', '1.6.3');
 
-$plugin->version   = 2018082201;       // The current module version (Date: YYYYMMDDXX)
+$plugin->version   = 2018091402;       // The current module version (Date: YYYYMMDDXX)
 $plugin->requires  = 2010031900;       // Requires this Moodle version
 $plugin->cron      = 0;
 $plugin->component = 'mod_forumqta';
